@@ -29,7 +29,10 @@ JoystickEvent get_event(Joystick& joystick)
     // Attempt to sample an event from the joystick
     JoystickEvent event;
 
-    joystick.read_event(&event);
+    if (joystick.read_event(&event)){
+      return event;
+      break;
+    }
 
     /*  follow the same methode of value in QT monitor */
     /*  debug info to be added with debug  */
