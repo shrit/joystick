@@ -71,6 +71,9 @@ int main(int argc, char** argv)
 			 else if(joystick.ButtonBChanged()) {
 			   std::cout << "GOOOD B" << std::endl;			 
 			 }
+			 else if (joystick.isButton()){
+			   std::cout << "GOOOD  a button" << std::endl;
+			 }
 		       };
   
 

@@ -148,18 +148,19 @@ public:
    * internal data structures.
    */
   friend std::ostream& operator<<(std::ostream& os, const JoystickEvent& e);
-  
 
+  bool isButton()
+  {
+    return (type & JS_EVENT_BUTTON) != 0;
+  }
+
+ 
 private:
       
   /**
    * Returns true if this event is the result of a button press.
    */
 
-  bool isButton()
-  {
-    return (type & JS_EVENT_BUTTON) != 0;
-  }
 
   /**
    * Returns true if this event is the result of an axis movement.
