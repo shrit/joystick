@@ -13,25 +13,30 @@
 // Copyright Drew Noakes 2013-2016
 
 #include "joystick.hh"
-#include <unistd.h>
 
-int main(int argc, char** argv)
+#include <unistd.h>
+# include <future>
+# include <thread>
+# include <chrono>
+
+void joystick()
 {
+
   // Create an instance of Joystick
   Joystick joystick("/dev/input/js0");
 
   // Ensure that it was found and that we can use it
   if (!joystick.isFound())
   {
-    printf("open failed.\n");
+    std::cout << "No device found." << std::endl;
     exit(1);
   }
 
+
   while (true)
   {
-    // Restrict rate
-    usleep(1000);
-
+    // Restrict rate    
+    std::this_thread::sleep_for(std::chrono::seconds(1));
     // Attempt to sample an event from the joystick
     JoystickEvent event;
     if (joystick.sample(&event))
@@ -48,4 +53,19 @@ int main(int argc, char** argv)
       }
     }
   }
+  
+}
+
+
+int main(int argc, char** argv)
+{
+
+  std::async(joystick);
+  while(true)
+    {
+      std::this_thread::sleep_for(std::chrono::seconds(1));
+      std::cout<< "testing the data in async" << std::endl;
+    }
+  
+  
 }

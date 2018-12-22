@@ -1,1 +1,1 @@
-g++ test.cc joystick.cc -std=c++0x -Wall -o test
+g++ main.cc joystick.cc  -Wall -o joystick  -pthread

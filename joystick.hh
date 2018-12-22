@@ -15,8 +15,15 @@
 #ifndef __JOYSTICK_HH__
 #define __JOYSTICK_HH__
 
-#include <string>
-#include <iostream>
+# include <string>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <fcntl.h>
+# include <iostream>
+# include <string>
+# include <sstream>
+# include "unistd.h"
+
 
 #define JS_EVENT_BUTTON 0x01 // button pressed/released
 #define JS_EVENT_AXIS   0x02 // joystick moved
