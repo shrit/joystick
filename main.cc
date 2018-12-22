@@ -19,53 +19,72 @@
 # include <thread>
 # include <chrono>
 
-void joystick()
+/*BLOCKING Function, to be executed async*/
+JoystickEvent get_event()
 {
-
-  // Create an instance of Joystick
-  Joystick joystick("/dev/input/js0");
-
-  // Ensure that it was found and that we can use it
-  if (!joystick.isFound())
-  {
-    std::cout << "No device found." << std::endl;
-    exit(1);
-  }
-
-
   while (true)
   {
     // Restrict rate    
     std::this_thread::sleep_for(std::chrono::seconds(1));
+    
     // Attempt to sample an event from the joystick
     JoystickEvent event;
-    if (joystick.sample(&event))
-    {
-      if (event.isButton())
-      {
-        printf("Button %u is %s\n",
-          event.number,
-          event.value == 0 ? "up" : "down");
-      }
-      else if (event.isAxis())
-      {
-        printf("Axis %u is at position %d\n", event.number, event.value);
-      }
-    }
-  }
-  
-}
 
+    joystick.sample(&event);
+
+    /*  debug info to be added with debug  */
+      // if (event.isButton())
+      // 	{
+      // 	  printf("Button %u is %s\n",
+      // 		 event.number,
+      // 		 event.value == 0 ? "up" : "down");
+      // 	}
+      // else if (event.isAxis())
+      // 	{
+      // 	  printf("Axis %u is at position %d\n", event.number, event.value);
+      // 	}
+  }
+}
 
 int main(int argc, char** argv)
 {
-
-  std::async(joystick);
-  while(true)
+  
+  // Create an instance of Joystick
+  Joystick joystick("/dev/input/js0");
+  
+  // Ensure that it was found and that we can use it
+  if (!joystick.isFound())
     {
-      std::this_thread::sleep_for(std::chrono::seconds(1));
-      std::cout<< "testing the data in async" << std::endl;
+      std::cout << "No device found." << std::endl;
+      exit(1);
     }
+
+
+  JoystickEvent event;
   
+  auto lambda = [&](){
+
+		  event = get_event();
+		  
+		  
+		}
   
+  auto result_future =  std::async(std::launch::async, joystick);
+  
+  auto test =
+    std::async(std::launch::async,
+	       [](){
+		 while(true)
+		   {
+		     std::this_thread::sleep_for(std::chrono::seconds(1));
+		     std::cout<< "testing the data in async" << std::endl;
+		   }
+	       }
+	       );
+  
+  result_future.get();
+  test.get();
 }
+
+  
+
