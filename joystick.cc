@@ -64,6 +64,42 @@ Joystick::~Joystick()
   close(_fd);
 }
 
+bool Joystick::ButtonAChanged()
+{
+  if(isButton()) {
+    if(number == 0)
+      return (bool)value;
+    }
+  return false;
+}
+
+bool Joystick::ButtonBChanged()
+{
+  if(isButton()) {
+    if(number == 1)
+      return (bool)value;
+    }
+  return false;
+}
+
+bool Joystick::ButtonXChanged()
+{
+  if(isButton()) {
+    if(number == 2)
+      return (bool)value;
+    }
+  return false;
+}
+
+bool Joystick::ButtonYChanged()
+{
+  if(isButton()) {
+    if(number == 3)
+      return (bool)value;
+    }
+  return false;
+}
+
 std::ostream& operator<<(std::ostream& os, const JoystickEvent& e)
 {
   os << "type=" << static_cast<int>(e.type)

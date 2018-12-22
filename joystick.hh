@@ -15,16 +15,16 @@
 #ifndef __JOYSTICK_HH__
 #define __JOYSTICK_HH__
 
-# include <string>
+/*  Posix library headers */
 # include <sys/types.h>
 # include <sys/stat.h>
-
+# include "unistd.h"
 # include <fcntl.h>
+
+/* C++ Standard library  */
 # include <iostream>
 # include <string>
 # include <sstream>
-
-# include "unistd.h"
 
 
 #define JS_EVENT_BUTTON 0x01 // button pressed/released
@@ -32,18 +32,8 @@
 #define JS_EVENT_INIT   0x80 // initial state of device
 
 
-/**
- * Encapsulates all data relevant to a sampled joystick event.
- */
-class JoystickEvent
+struct JoystickEvent
 {
-public:
-  /** Minimum value of axes range */
-  static const short MIN_AXES_VALUE = -32768;
-
-  /** Maximum value of axes range */
-  static const short MAX_AXES_VALUE = 32767;
-  
   /**
    * The timestamp of the event, in milliseconds.
    */
@@ -65,37 +55,7 @@ public:
    * The axis/button number.
    */
   unsigned char number;
-
-  /**
-   * Returns true if this event is the result of a button press.
-   */
-  bool isButton()
-  {
-    return (type & JS_EVENT_BUTTON) != 0;
-  }
-
-  /**
-   * Returns true if this event is the result of an axis movement.
-   */
-  bool isAxis()
-  {
-    return (type & JS_EVENT_AXIS) != 0;
-  }
-
-  /**
-   * Returns true if this event is part of the initial state obtained when
-   * the joystick is first connected to.
-   */
-  bool isInitialState()
-  {
-    return (type & JS_EVENT_INIT) != 0;
-  }
-
-  /**
-   * The ostream inserter needs to be a friend so it can access the
-   * internal data structures.
-   */
-  friend std::ostream& operator<<(std::ostream& os, const JoystickEvent& e);
+  
 };
 
 /**
@@ -107,7 +67,7 @@ std::ostream& operator<<(std::ostream& os, const JoystickEvent& e);
 /**
  * Represents a joystick device. Allows data to be sampled from it.
  */
-class Joystick
+class Joystick  : private JoystickEvent
 {
   
 public:
@@ -158,7 +118,58 @@ public:
   bool read_event(JoystickEvent* event);
 
 
+    /** Minimum value of axes range */
+  static const short MIN_AXES_VALUE = -32768;
+
+  /** Maximum value of axes range */
+  static const short MAX_AXES_VALUE = 32767;
+
+  bool ButtonAChanged();
+  bool ButtonBChanged();
+  bool ButtonXChanged();
+  bool ButtonYChanged();
+  
+  bool ButtonStartChanged();
+  bool ButtonSelectChanged();
+  
+  bool RightAxisChanged();
+  bool LeftAxisChanged();
+  /**
+   * Returns true if this event is part of the initial state obtained when
+   * the joystick is first connected to.
+   */
+  bool isInitialState()
+  {
+    return (type & JS_EVENT_INIT) != 0;
+  }
+
+  /**
+   * The ostream inserter needs to be a friend so it can access the
+   * internal data structures.
+   */
+  friend std::ostream& operator<<(std::ostream& os, const JoystickEvent& e);
+  
+
 private:
+      
+  /**
+   * Returns true if this event is the result of a button press.
+   */
+
+  bool isButton()
+  {
+    return (type & JS_EVENT_BUTTON) != 0;
+  }
+
+  /**
+   * Returns true if this event is the result of an axis movement.
+   */
+  bool isAxis()
+  {
+    return (type & JS_EVENT_AXIS) != 0;
+  }
+
+
   void openPath(std::string devicePath, bool blocking=false);
   
   int _fd;
