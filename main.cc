@@ -20,18 +20,18 @@
 # include <chrono>
 
 /*BLOCKING Function, to be executed async*/
-JoystickEvent get_event()
+JoystickEvent get_event(Joystick& joystick)
 {
+  
   while (true)
-  {
-    // Restrict rate    
-    std::this_thread::sleep_for(std::chrono::seconds(1));
-    
+  {    
+        
     // Attempt to sample an event from the joystick
     JoystickEvent event;
 
-    joystick.sample(&event);
+    joystick.read_event(&event);
 
+    /*  follow the same methode of value in QT monitor */
     /*  debug info to be added with debug  */
       // if (event.isButton())
       // 	{
@@ -59,30 +59,36 @@ int main(int argc, char** argv)
       exit(1);
     }
 
-
   JoystickEvent event;
   
-  auto lambda = [&](){
-
-		  event = get_event();
-		  
-		  
-		}
+  auto event_handler = [&](){
+			 
+			 event = get_event(joystick);
+			 if(joystick.ButtonAChanged()) {
+			   
+			   std::cout << "GOOOD A" << std::endl;			 
+			 }
+			 else if(joystick.ButtonBChanged()) {
+			   std::cout << "GOOOD B" << std::endl;			 
+			 }
+		       };
   
-  auto result_future =  std::async(std::launch::async, joystick);
+
+  auto joystick_event =  std::async(std::launch::async, event_handler);
   
   auto test =
     std::async(std::launch::async,
 	       [](){
+		 
 		 while(true)
 		   {
 		     std::this_thread::sleep_for(std::chrono::seconds(1));
-		     std::cout<< "testing the data in async" << std::endl;
+		     std::cout<< "testing in async mode..." << std::endl;
 		   }
 	       }
 	       );
   
-  result_future.get();
+  joystick_event.get();
   test.get();
 }
 
