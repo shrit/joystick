@@ -18,16 +18,19 @@
 # include <string>
 # include <sys/types.h>
 # include <sys/stat.h>
+
 # include <fcntl.h>
 # include <iostream>
 # include <string>
 # include <sstream>
+
 # include "unistd.h"
 
 
 #define JS_EVENT_BUTTON 0x01 // button pressed/released
 #define JS_EVENT_AXIS   0x02 // joystick moved
 #define JS_EVENT_INIT   0x80 // initial state of device
+
 
 /**
  * Encapsulates all data relevant to a sampled joystick event.
@@ -106,13 +109,8 @@ std::ostream& operator<<(std::ostream& os, const JoystickEvent& e);
  */
 class Joystick
 {
-private:
-  void openPath(std::string devicePath, bool blocking=false);
-  
-  int _fd;
   
 public:
-  ~Joystick();
 
   /**
    * Initialises an instance for the first joystick: /dev/input/js0
@@ -145,7 +143,9 @@ public:
    * the option of blocking I/O.
    */
   Joystick(std::string devicePath, bool blocking);
- 
+
+  ~Joystick();
+  
   /**
    * Returns true if the joystick was found and may be used, otherwise false.
    */
@@ -155,7 +155,15 @@ public:
    * Attempts to populate the provided JoystickEvent instance with data
    * from the joystick. Returns true if data is available, otherwise false.
    */
-  bool sample(JoystickEvent* event);
+  bool read_event(JoystickEvent* event);
+
+
+private:
+  void openPath(std::string devicePath, bool blocking=false);
+  
+  int _fd;
+  
+  
 };
 
 #endif

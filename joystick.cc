@@ -14,7 +14,6 @@
 
 #include "joystick.hh"
 
-
 Joystick::Joystick()
 {
   openPath("/dev/input/js0");
@@ -43,7 +42,7 @@ void Joystick::openPath(std::string devicePath, bool blocking)
   _fd = open(devicePath.c_str(), blocking ? O_RDONLY : O_RDONLY | O_NONBLOCK);
 }
 
-bool Joystick::sample(JoystickEvent* event)
+bool Joystick::read_event(JoystickEvent* event)
 {
   int bytes = read(_fd, event, sizeof(*event)); 
 
