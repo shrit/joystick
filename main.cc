@@ -61,7 +61,10 @@ JoystickEvent event_handler(Joystick& joystick, JoystickEvent event)
       else if(joystick.ButtonGuideChanged(event)) {
 	std::cout << "Guide" << std::endl;			 
       }
-  
+      else if(joystick.RightAxisChanged(event)) {
+	std::cout << "Rx: " << joystick.RightAxisChanged(event) << std::endl;	 
+      }
+        
     }     
  
   

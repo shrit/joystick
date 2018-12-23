@@ -67,7 +67,7 @@ Joystick::~Joystick()
 bool Joystick::ButtonAChanged(JoystickEvent& event)
 {
   if(isButton(event) && event.number == 0) {
-      return bool(value);
+    return bool(event.value);
     }
   return false;
 }
@@ -75,7 +75,7 @@ bool Joystick::ButtonAChanged(JoystickEvent& event)
 bool Joystick::ButtonBChanged(JoystickEvent& event)
 {
   if(isButton(event) && event.number == 1) {
-      return (bool)value;
+      return (bool)event.value;
     }
   return false;
 }
@@ -83,7 +83,7 @@ bool Joystick::ButtonBChanged(JoystickEvent& event)
 bool Joystick::ButtonXChanged(JoystickEvent& event)
 {
   if(isButton(event) && event.number == 2) {
-      return (bool)value;
+      return (bool)event.value;
     }
   return false;
 }
@@ -91,7 +91,7 @@ bool Joystick::ButtonXChanged(JoystickEvent& event)
 bool Joystick::ButtonYChanged(JoystickEvent& event)
 {
   if(isButton(event) && event.number == 3) {
-      return (bool)value;
+      return (bool)event.value;
     }
   return false;
 }
@@ -99,7 +99,7 @@ bool Joystick::ButtonYChanged(JoystickEvent& event)
 bool Joystick::ButtonL1Changed(JoystickEvent& event)
 {
   if(isButton(event) && event.number == 4) {
-      return (bool)value;
+      return (bool)event.value;
     }
   return false;
 }
@@ -108,7 +108,7 @@ bool Joystick::ButtonL1Changed(JoystickEvent& event)
 bool Joystick::ButtonR1Changed(JoystickEvent& event)
 {
   if(isButton(event) && event.number == 5) {
-      return (bool)value;
+      return (bool)event.value;
     }
   return false;
 }
@@ -116,7 +116,7 @@ bool Joystick::ButtonR1Changed(JoystickEvent& event)
 bool Joystick::ButtonSelectChanged(JoystickEvent& event)
 {
   if(isButton(event) && event.number == 6) {
-      return (bool)value;
+      return (bool)event.value;
     }
   return false;
 }
@@ -124,7 +124,7 @@ bool Joystick::ButtonSelectChanged(JoystickEvent& event)
 bool Joystick::ButtonStartChanged(JoystickEvent& event)
 {
   if(isButton(event) && event.number == 7) {
-      return (bool)value;
+      return (bool)event.value;
     }
   return false;
 }
@@ -132,9 +132,17 @@ bool Joystick::ButtonStartChanged(JoystickEvent& event)
 bool Joystick::ButtonGuideChanged(JoystickEvent& event)
 {
   if(isButton(event) && event.number == 8) {
-      return (bool)value;
+      return (bool)event.value;
     }
   return false;
+}
+
+bool Joystick::RightAxisChanged(JoystickEvent& event)
+{
+  if(isAxis(event) && event.number == 0) {
+      return event.value;
+    }
+  return false;  
 }
 
 

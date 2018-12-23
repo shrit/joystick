@@ -138,8 +138,8 @@ public:
 
   bool ButtonGuideChanged(JoystickEvent& event);
   
-  bool RightAxisChanged();
-  bool LeftAxisChanged();
+  int RightAxisChanged(JoystickEvent& event);
+  int LeftAxisChanged(JoystickEvent& event);
   /**
    * Returns true if this event is part of the initial state obtained when
    * the joystick is first connected to.
