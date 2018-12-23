@@ -12,40 +12,47 @@
 //
 // Copyright Drew Noakes 2013-2016
 
-#include "joystick.hh"
+# include "joystick.hh"
 
-#include <unistd.h>
 # include <future>
 # include <thread>
 # include <chrono>
 
-/*BLOCKING Function, to be executed async*/
-JoystickEvent get_event(Joystick& joystick)
+JoystickEvent event_handler(Joystick& joystick, JoystickEvent event)
 {
   
   while (true)
-  {    
-        
-    // Attempt to sample an event from the joystick
+  {            
+    // Attempt to read an event from the joystick
     JoystickEvent event;
 
     if (joystick.read_event(&event)){
-      return event;
-      break;
+      
+      if(joystick.ButtonAChanged()) {
+	
+	std::cout << "GOOOD A" << std::endl;			 
+      }
+      else if(joystick.ButtonBChanged()) {
+	std::cout << "GOOOD B" << std::endl;			 
+      }
+      else if (joystick.isButton()){
+	std::cout << "GOOOD  a button" << std::endl;
+      }
+      printf("Button %u is %s\n",
+       		 event.number,
+       		 event.value == 0 ? "up" : "down");	  
     }
-
+    
     /*  follow the same methode of value in QT monitor */
     /*  debug info to be added with debug  */
-      // if (event.isButton())
-      // 	{
-      // 	  printf("Button %u is %s\n",
-      // 		 event.number,
-      // 		 event.value == 0 ? "up" : "down");
-      // 	}
-      // else if (event.isAxis())
-      // 	{
-      // 	  printf("Axis %u is at position %d\n", event.number, event.value);
-      // 	}
+    // if (event.isButton())
+    // 	{
+    //
+    // 	}
+    // else if (event.isAxis())
+    // 	{
+    // 	  printf("Axis %u is at position %d\n", event.number, event.value);
+    // 	}
   }
 }
 
@@ -53,34 +60,23 @@ int main(int argc, char** argv)
 {
   
   // Create an instance of Joystick
-  Joystick joystick("/dev/input/js0");
+  Joystick joystick("/dev/input/js1");
   
   // Ensure that it was found and that we can use it
   if (!joystick.isFound())
     {
-      std::cout << "No device found." << std::endl;
+      std::cout << "No device found, please connect a joystick" << std::endl;
       exit(1);
     }
 
   JoystickEvent event;
   
-  auto event_handler = [&](){
-			 
-			 event = get_event(joystick);
-			 if(joystick.ButtonAChanged()) {
-			   
-			   std::cout << "GOOOD A" << std::endl;			 
-			 }
-			 else if(joystick.ButtonBChanged()) {
-			   std::cout << "GOOOD B" << std::endl;			 
-			 }
-			 else if (joystick.isButton()){
-			   std::cout << "GOOOD  a button" << std::endl;
-			 }
+  auto update_handler = [&](){			 
+			 event_handler(joystick, event);
 		       };
   
 
-  auto joystick_event =  std::async(std::launch::async, event_handler);
+  auto joystick_event =  std::async(std::launch::async, update_handler);
   
   auto test =
     std::async(std::launch::async,

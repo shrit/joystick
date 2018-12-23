@@ -68,7 +68,7 @@ bool Joystick::ButtonAChanged()
 {
   if(isButton()) {
     if(number == 0)
-      return (bool)value;
+      return true;
     }
   return false;
 }
@@ -86,7 +86,7 @@ bool Joystick::ButtonXChanged()
 {
   if(isButton()) {
     if(number == 2)
-      return (bool)value;
+      return true;
     }
   return false;
 }
@@ -95,7 +95,7 @@ bool Joystick::ButtonYChanged()
 {
   if(isButton()) {
     if(number == 3)
-      return (bool)value;
+      return true;
     }
   return false;
 }
