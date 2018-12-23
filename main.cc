@@ -35,25 +35,36 @@ JoystickEvent event_handler(Joystick& joystick, JoystickEvent event)
     if (joystick.read_event(&event)){
       
       if(joystick.ButtonAChanged(event)) {
-	
-	std::cout << "GOOOD A" << std::endl;			 
+	std::cout << "A" << std::endl;			 
       }
       else if(joystick.ButtonBChanged(event)) {
-	std::cout << "GOOOD B" << std::endl;			 
+	std::cout << "B" << std::endl;			 
       }
       else if(joystick.ButtonXChanged(event)) {
-	std::cout << "GOOOD X" << std::endl;			 
+	std::cout << "X" << std::endl;			 
       }
       else if(joystick.ButtonYChanged(event)) {
-	std::cout << "GOOOD Y" << std::endl;			 
+	std::cout << "Y" << std::endl;			 
+      }
+      else if(joystick.ButtonL1Changed(event)) {
+	std::cout << "L1" << std::endl;			 
+      }
+      else if(joystick.ButtonR1Changed(event)) {
+	std::cout << "R1" << std::endl;			 
+      }
+      else if(joystick.ButtonSelectChanged(event)) {
+	std::cout << "Select" << std::endl;			 
+      }
+      else if(joystick.ButtonStartChanged(event)) {
+	std::cout << "Start" << std::endl;			 
+      }     
+      else if(joystick.ButtonGuideChanged(event)) {
+	std::cout << "Guide" << std::endl;			 
       }
   
     }     
  
-    // if (event.isButton())
-    // 	{
-    //
-    // 	}
+  
     // else if (event.isAxis())
     // 	{
     // 	  printf("Axis %u is at position %d\n", event.number, event.value);

@@ -66,8 +66,7 @@ Joystick::~Joystick()
 
 bool Joystick::ButtonAChanged(JoystickEvent& event)
 {
-  if(isButton(event)) {
-    if(event.number == 0)
+  if(isButton(event) && event.number == 0) {
       return bool(value);
     }
   return false;
@@ -75,8 +74,7 @@ bool Joystick::ButtonAChanged(JoystickEvent& event)
 
 bool Joystick::ButtonBChanged(JoystickEvent& event)
 {
-  if(isButton(event)) {
-    if(event.number == 1)
+  if(isButton(event) && event.number == 1) {
       return (bool)value;
     }
   return false;
@@ -84,8 +82,7 @@ bool Joystick::ButtonBChanged(JoystickEvent& event)
 
 bool Joystick::ButtonXChanged(JoystickEvent& event)
 {
-  if(isButton(event)) {
-    if(number == 2)
+  if(isButton(event) && event.number == 2) {
       return (bool)value;
     }
   return false;
@@ -93,12 +90,53 @@ bool Joystick::ButtonXChanged(JoystickEvent& event)
 
 bool Joystick::ButtonYChanged(JoystickEvent& event)
 {
-  if(isButton(event)) {
-    if(number == 3)
+  if(isButton(event) && event.number == 3) {
       return (bool)value;
     }
   return false;
 }
+
+bool Joystick::ButtonL1Changed(JoystickEvent& event)
+{
+  if(isButton(event) && event.number == 4) {
+      return (bool)value;
+    }
+  return false;
+}
+
+
+bool Joystick::ButtonR1Changed(JoystickEvent& event)
+{
+  if(isButton(event) && event.number == 5) {
+      return (bool)value;
+    }
+  return false;
+}
+
+bool Joystick::ButtonSelectChanged(JoystickEvent& event)
+{
+  if(isButton(event) && event.number == 6) {
+      return (bool)value;
+    }
+  return false;
+}
+
+bool Joystick::ButtonStartChanged(JoystickEvent& event)
+{
+  if(isButton(event) && event.number == 7) {
+      return (bool)value;
+    }
+  return false;
+}
+
+bool Joystick::ButtonGuideChanged(JoystickEvent& event)
+{
+  if(isButton(event) && event.number == 8) {
+      return (bool)value;
+    }
+  return false;
+}
+
 
 std::ostream& operator<<(std::ostream& os, const JoystickEvent& e)
 {

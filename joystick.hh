@@ -126,11 +126,17 @@ public:
 
   bool ButtonAChanged(JoystickEvent& event);
   bool ButtonBChanged(JoystickEvent& event);
+
   bool ButtonXChanged(JoystickEvent& event);
   bool ButtonYChanged(JoystickEvent& event);
-  
-  bool ButtonStartChanged(JoystickEvent& event);
+
+  bool ButtonL1Changed(JoystickEvent& event);
+  bool ButtonR1Changed(JoystickEvent& event);
+
   bool ButtonSelectChanged(JoystickEvent& event);
+  bool ButtonStartChanged(JoystickEvent& event);
+
+  bool ButtonGuideChanged(JoystickEvent& event);
   
   bool RightAxisChanged();
   bool LeftAxisChanged();
