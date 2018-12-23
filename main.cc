@@ -18,6 +18,12 @@
 # include <thread>
 # include <chrono>
 
+
+/** 
+ *  You can move the event loop to the lambda inside the main
+ *  function.
+*/
+
 JoystickEvent event_handler(Joystick& joystick, JoystickEvent event)
 {
   
@@ -35,16 +41,15 @@ JoystickEvent event_handler(Joystick& joystick, JoystickEvent event)
       else if(joystick.ButtonBChanged(event)) {
 	std::cout << "GOOOD B" << std::endl;			 
       }
-      else if (joystick.isButton(event)){
-	std::cout << "GOOOD  a button" << std::endl;
+      else if(joystick.ButtonXChanged(event)) {
+	std::cout << "GOOOD X" << std::endl;			 
       }
-      // printf("Button %u is %s\n",
-      //  		 event.number,
-      //  		 event.value == 0 ? "up" : "down");	  
-    }
-    
-    /*  follow the same methode of value in QT monitor */
-    /*  debug info to be added with debug  */
+      else if(joystick.ButtonYChanged(event)) {
+	std::cout << "GOOOD Y" << std::endl;			 
+      }
+  
+    }     
+ 
     // if (event.isButton())
     // 	{
     //
@@ -75,7 +80,6 @@ int main(int argc, char** argv)
 			 event_handler(joystick, event);
 		       };
   
-
   auto joystick_event =  std::async(std::launch::async, update_handler);
   
   auto test =

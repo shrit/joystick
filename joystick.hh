@@ -126,11 +126,11 @@ public:
 
   bool ButtonAChanged(JoystickEvent& event);
   bool ButtonBChanged(JoystickEvent& event);
-  bool ButtonXChanged();
-  bool ButtonYChanged();
+  bool ButtonXChanged(JoystickEvent& event);
+  bool ButtonYChanged(JoystickEvent& event);
   
-  bool ButtonStartChanged();
-  bool ButtonSelectChanged();
+  bool ButtonStartChanged(JoystickEvent& event);
+  bool ButtonSelectChanged(JoystickEvent& event);
   
   bool RightAxisChanged();
   bool LeftAxisChanged();
@@ -148,12 +148,6 @@ public:
    * internal data structures.
    */
   friend std::ostream& operator<<(std::ostream& os, const JoystickEvent& e);
-
-  bool isButton(JoystickEvent& event)
-  {
-    return (event.type & JS_EVENT_BUTTON) != 0;
-  }
-
  
 private:
       
@@ -161,15 +155,12 @@ private:
    * Returns true if this event is the result of a button press.
    */
 
-
+  bool isButton(JoystickEvent& event);
+ 
   /**
    * Returns true if this event is the result of an axis movement.
    */
-  bool isAxis()
-  {
-    return (type & JS_EVENT_AXIS) != 0;
-  }
-
+  bool isAxis(JoystickEvent& event);
 
   void openPath(std::string devicePath, bool blocking=false);
   
