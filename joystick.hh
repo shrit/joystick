@@ -124,8 +124,8 @@ public:
   /** Maximum value of axes range */
   static const short MAX_AXES_VALUE = 32767;
 
-  bool ButtonAChanged();
-  bool ButtonBChanged();
+  bool ButtonAChanged(JoystickEvent& event);
+  bool ButtonBChanged(JoystickEvent& event);
   bool ButtonXChanged();
   bool ButtonYChanged();
   
@@ -149,9 +149,9 @@ public:
    */
   friend std::ostream& operator<<(std::ostream& os, const JoystickEvent& e);
 
-  bool isButton()
+  bool isButton(JoystickEvent& event)
   {
-    return (type & JS_EVENT_BUTTON) != 0;
+    return (event.type & JS_EVENT_BUTTON) != 0;
   }
 
  

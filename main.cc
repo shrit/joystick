@@ -28,19 +28,19 @@ JoystickEvent event_handler(Joystick& joystick, JoystickEvent event)
 
     if (joystick.read_event(&event)){
       
-      if(joystick.ButtonAChanged()) {
+      if(joystick.ButtonAChanged(event)) {
 	
 	std::cout << "GOOOD A" << std::endl;			 
       }
-      else if(joystick.ButtonBChanged()) {
+      else if(joystick.ButtonBChanged(event)) {
 	std::cout << "GOOOD B" << std::endl;			 
       }
-      else if (joystick.isButton()){
+      else if (joystick.isButton(event)){
 	std::cout << "GOOOD  a button" << std::endl;
       }
-      printf("Button %u is %s\n",
-       		 event.number,
-       		 event.value == 0 ? "up" : "down");	  
+      // printf("Button %u is %s\n",
+      //  		 event.number,
+      //  		 event.value == 0 ? "up" : "down");	  
     }
     
     /*  follow the same methode of value in QT monitor */
