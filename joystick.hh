@@ -138,8 +138,18 @@ public:
 
   bool ButtonGuideChanged(JoystickEvent& event);
   
-  int RightAxisChanged(JoystickEvent& event);
-  int LeftAxisChanged(JoystickEvent& event);
+  int RightAxisXChanged(JoystickEvent& event);
+  int RightAxisYChanged(JoystickEvent& event);
+  
+  int LeftAxisXChanged(JoystickEvent& event);
+  int LeftAxisYChanged(JoystickEvent& event);
+
+  int AxisL2Changed(JoystickEvent& event);
+  int AxisR2Changed(JoystickEvent& event);
+
+  int DpadXChanged(JoystickEvent& event);
+  int DpadYChanged(JoystickEvent& event);
+
   /**
    * Returns true if this event is part of the initial state obtained when
    * the joystick is first connected to.

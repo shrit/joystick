@@ -137,12 +137,70 @@ bool Joystick::ButtonGuideChanged(JoystickEvent& event)
   return false;
 }
 
-bool Joystick::RightAxisChanged(JoystickEvent& event)
+int Joystick::RightAxisXChanged(JoystickEvent& event)
 {
   if(isAxis(event) && event.number == 0) {
       return event.value;
     }
   return false;  
+}
+
+int Joystick::RightAxisYChanged(JoystickEvent& event)
+{
+  if(isAxis(event) && event.number == 1) {
+      return event.value;
+    }
+  return false;  
+}
+
+int Joystick::LeftAxisXChanged(JoystickEvent& event)
+{
+  if(isAxis(event) && event.number == 2) {
+      return event.value;
+    }
+  return false;  
+}
+
+int Joystick::LeftAxisYChanged(JoystickEvent& event)
+{
+  if(isAxis(event) && event.number == 3) {
+      return event.value;
+    }
+  return false;  
+}
+
+int Joystick::AxisL2Changed(JoystickEvent& event)
+{
+  if(isAxis(event) && event.number == 4) {
+    return event.value;
+  }
+  return false;  
+}
+
+int Joystick::AxisR2Changed(JoystickEvent& event)
+{
+  if(isAxis(event) && event.number == 5) {
+    return event.value;
+  }
+  return false;    
+}
+
+int Joystick::DpadXChanged(JoystickEvent& event)
+{
+  if(isAxis(event) && event.number == 6) {
+    return event.value;
+  }
+  return false;    
+  
+}
+
+int Joystick::DpadYChanged(JoystickEvent& event)
+{
+  if(isAxis(event) && event.number == 7) {
+    return event.value;
+  }
+  return false;    
+  
 }
 
 

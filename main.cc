@@ -61,17 +61,31 @@ JoystickEvent event_handler(Joystick& joystick, JoystickEvent event)
       else if(joystick.ButtonGuideChanged(event)) {
 	std::cout << "Guide" << std::endl;			 
       }
-      else if(joystick.RightAxisChanged(event)) {
-	std::cout << "Rx: " << joystick.RightAxisChanged(event) << std::endl;	 
+      else if(joystick.RightAxisXChanged(event)) {
+	std::cout << "Rx: " << joystick.RightAxisXChanged(event) << std::endl;	 
       }
-        
-    }     
- 
-  
-    // else if (event.isAxis())
-    // 	{
-    // 	  printf("Axis %u is at position %d\n", event.number, event.value);
-    // 	}
+      else if (joystick.RightAxisYChanged(event)) {
+	std::cout << "Ry: " << joystick.RightAxisYChanged(event) << std::endl;	 
+      }
+      else if (joystick.LeftAxisXChanged(event)) {
+	std::cout << "Lx: " << joystick.LeftAxisXChanged(event) << std::endl;
+      }
+     else if (joystick.LeftAxisYChanged(event)) {
+	std::cout << "Ly: " << joystick.LeftAxisYChanged(event) << std::endl;
+     }
+     else if (joystick.AxisL2Changed(event)) {
+	std::cout << "L2: " << joystick.AxisL2Changed(event) << std::endl;
+     }
+     else if (joystick.AxisR2Changed(event)) {
+       std::cout << "R2: " << joystick.AxisR2Changed(event) << std::endl;
+     }
+     else if (joystick.DpadXChanged(event)) {
+       std::cout << "Dx: " << joystick.DpadXChanged(event) << std::endl;
+     }
+     else if (joystick.DpadYChanged(event)) {
+       std::cout << "Dy: " << joystick.DpadYChanged(event) << std::endl;
+     }      
+    }       
   }
 }
 
