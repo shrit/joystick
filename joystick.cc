@@ -139,7 +139,7 @@ bool Joystick::ButtonGuideChanged(JoystickEvent& event)
 
 int Joystick::RightAxisXChanged(JoystickEvent& event)
 {
-  if(isAxis(event) && event.number == 0) {
+  if(isAxis(event) && event.number == 3) {
       return event.value;
     }
   return false;  
@@ -147,7 +147,7 @@ int Joystick::RightAxisXChanged(JoystickEvent& event)
 
 int Joystick::RightAxisYChanged(JoystickEvent& event)
 {
-  if(isAxis(event) && event.number == 1) {
+  if(isAxis(event) && event.number == 4) {
       return event.value;
     }
   return false;  
@@ -155,7 +155,7 @@ int Joystick::RightAxisYChanged(JoystickEvent& event)
 
 int Joystick::LeftAxisXChanged(JoystickEvent& event)
 {
-  if(isAxis(event) && event.number == 2) {
+  if(isAxis(event) && event.number == 0) {
       return event.value;
     }
   return false;  
@@ -163,7 +163,7 @@ int Joystick::LeftAxisXChanged(JoystickEvent& event)
 
 int Joystick::LeftAxisYChanged(JoystickEvent& event)
 {
-  if(isAxis(event) && event.number == 3) {
+  if(isAxis(event) && event.number == 1) {
       return event.value;
     }
   return false;  
@@ -171,7 +171,7 @@ int Joystick::LeftAxisYChanged(JoystickEvent& event)
 
 int Joystick::AxisL2Changed(JoystickEvent& event)
 {
-  if(isAxis(event) && event.number == 4) {
+  if(isAxis(event) && event.number == 2) {
     return event.value;
   }
   return false;  
