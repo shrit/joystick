@@ -60,7 +60,7 @@ struct JoystickEvent
 
 /**
  * Stream insertion function so you can do this:
- *    cout << event << endl;
+ *    std::cout << event << std::endl;
  */
 std::ostream& operator<<(std::ostream& os, const JoystickEvent& e);
 
